@@ -16,7 +16,8 @@ public class Yourcolor {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Jhonny weco <3
+        
+        //Jhonny weco <3
     }
     
 }
