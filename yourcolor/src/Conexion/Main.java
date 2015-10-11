@@ -6,8 +6,10 @@ import javax.swing.JOptionPane;
 
 /**
  *
+ * *
  * @author Kampu
- */
+ */ 
+
 public class Main {
     public static void main(String[] args)
     {
