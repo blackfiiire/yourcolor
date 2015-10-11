@@ -5,20 +5,26 @@
  */
 package yourcolor;
 
+import Conexion.ConexionDB;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Administrador
  */
 public class Yourcolor {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        
-        //Jhonny weco <3 ccccc
-        // sirve o no? Atte claudio
+
+    public static void main(String[] args)
+    {
+ //Verificar Conexion...
+        Connection miConexion;
+        miConexion=ConexionDB.GetConnection();
+      
+        if(miConexion!=null)
+        {
+            JOptionPane.showMessageDialog(null, "Conexión Realizada Correctamente");
+        }
     }
-    
 }

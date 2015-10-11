@@ -12,10 +12,11 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Kampu
+ * @author Kampu 
  */
 public class ConexionDB {
     
+// Conexion a la BD yourcolor   
     public static Connection GetConnection()
     {
         Connection conexion=null;
