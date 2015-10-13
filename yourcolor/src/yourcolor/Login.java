@@ -117,13 +117,13 @@ public static String Tipo;
         String usuario = tfRut.getText();
         String password= tfPassword.getText();
         String estado ="SELECT * FROM usuarios WHERE rut="+usuario+" and contrasena = '"+password+"' and estado = 1 ";
-        
+        String perfil = "SELECT perfil FROM usuarios WHERE rut="+usuario+"";
         
             
                 //Crear consulta para administrador
                 
                    try {
-                  String Query = "SELECT * FROM usuarios WHERE rut = "+usuario+" and contrasena = '"+password+"' ";
+                  String Query = "SELECT * FROM usuarios WHERE rut = "+usuario+" and contrasena = '"+password+"' and perfil = '"+perfil+"' ";
                   Statement st;
                   st = cn.createStatement();
                   ResultSet rs = st.executeQuery(Query);
@@ -131,20 +131,23 @@ public static String Tipo;
                         
                 if(rs.next())
                 {
-                
+                switch(perfil){
+                    
+                    case "3":
                     Variable.Rut = tfRut.getText();
                     this.dispose();
                     PPrincipal PP = new PPrincipal();
                     PP.setVisible(true);
                     
                 
-                
+                }
                     
                 }
                 } catch (SQLException ex) {
                     Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                 
+                   
+                     
         
     }//GEN-LAST:event_btnEntrarActionPerformed
 

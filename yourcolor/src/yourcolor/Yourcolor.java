@@ -5,7 +5,7 @@
  */
 package yourcolor;
 
-import Conexion.ConexionDB;
+
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 
@@ -19,12 +19,9 @@ public class Yourcolor {
     public static void main(String[] args)
     {
  //Verificar Conexion...
-        Connection miConexion;
-        miConexion=ConexionDB.GetConnection();
+        Login log = new Login();
+        log.setVisible(true);
       
-        if(miConexion!=null)
-        {
-            JOptionPane.showMessageDialog(null, "Conexión Realizada Correctamente");
-        }
+        
     }
 }
