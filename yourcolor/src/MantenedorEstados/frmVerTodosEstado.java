@@ -5,6 +5,9 @@
  */
 package MantenedorEstados;
 
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Image;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
@@ -269,6 +272,17 @@ public class frmVerTodosEstado extends javax.swing.JInternalFrame {
             }
             PdfPTable t = new PdfPTable(3);
             documento.open();
+            try
+{
+    Image foto = Image.getInstance("logo.png");
+    foto.scaleToFit(100, 100);
+    foto.setAlignment(Chunk.ALIGN_MIDDLE);
+    documento.add(foto);
+}
+catch ( Exception e )
+{
+    e.printStackTrace();
+}
             try {
                 documento.add(new Paragraph("                                                "));
             } catch (DocumentException ex) {
