@@ -5,12 +5,26 @@
  */
 package Mantenedores;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -73,6 +87,7 @@ public class frmVerTodosEstado extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         txttipo = new javax.swing.JComboBox();
+        btnImprimir = new javax.swing.JButton();
 
         tabla1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -103,6 +118,13 @@ public class frmVerTodosEstado extends javax.swing.JInternalFrame {
 
         txttipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cuenta", "Compra", "Mensajes" }));
 
+        btnImprimir.setText("Imprimir PDF");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,7 +141,9 @@ public class frmVerTodosEstado extends javax.swing.JInternalFrame {
                         .addGap(118, 118, 118)
                         .addComponent(txttipo, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -128,12 +152,13 @@ public class frmVerTodosEstado extends javax.swing.JInternalFrame {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(txttipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txttipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnImprimir))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -217,8 +242,99 @@ public class frmVerTodosEstado extends javax.swing.JInternalFrame {
 }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        // TODO add your handling code here:
+        JFileChooser seleccionar_archivo = new JFileChooser();
+
+        DefaultTableModel m =(DefaultTableModel) tabla1.getModel();
+      
+             int opcion=seleccionar_archivo.showSaveDialog(null);
+                if(opcion==seleccionar_archivo.APPROVE_OPTION){
+                
+                                        
+                  
+              OutputStream archivo = null;
+            try {
+                archivo = new FileOutputStream(seleccionar_archivo.getSelectedFile());
+               
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            Document documento = new Document();
+            try {
+                PdfWriter.getInstance(documento, archivo);
+            } catch (DocumentException ex) {
+                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            PdfPTable t = new PdfPTable(3);
+            documento.open();
+            try {
+                documento.add(new Paragraph("                                                "));
+            } catch (DocumentException ex) {
+                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                documento.add(new Paragraph("ESTADOS"));
+            } catch (DocumentException ex) {
+                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                documento.add(new Paragraph(" "));
+            } catch (DocumentException ex) {
+                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                documento.add(new Paragraph(" "));
+            } catch (DocumentException ex) {
+                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            int f=0;
+            String id;
+            String descripcion;
+            String tipo;
+            
+            try {
+                documento.add(t);
+            } catch (DocumentException ex) {
+                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             t.addCell("    ID");
+                 t.addCell("    DESCRIPCION");
+                t.addCell("    TIPO");
+            while (f < (m.getRowCount())){
+                id = m.getValueAt(f, 0).toString();
+                descripcion = m.getValueAt(f, 1).toString();
+                tipo = m.getValueAt(f, 2).toString();
+                
+                //Escribir Fila en archivo
+                t.addCell(id);
+                 t.addCell(descripcion);
+                t.addCell(tipo);
+               
+              
+                f++;
+            }
+            try {
+                documento.add(t);
+            } catch (DocumentException ex) {
+                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //
+            documento.close();
+             File JFC = seleccionar_archivo.getSelectedFile();
+                 String PATH = JFC.getAbsolutePath();//obtenemos el path del archivo a guardar
+                 if(!(PATH.endsWith(".pdf"))){
+                        File temp = new File(PATH+".pdf");
+                        JFC.renameTo(temp);//renombramos el archivo
+                    }
+          JOptionPane.showMessageDialog(this, "Documento PDF creado exitosamente!");
+        }
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
