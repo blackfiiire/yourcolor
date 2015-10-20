@@ -13,6 +13,7 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.toedter.calendar.JDateChooser;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,8 +23,10 @@ import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -32,23 +35,20 @@ import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
-import org.jfree.data.general.DefaultPieDataset;
-
-
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.data.category.DefaultCategoryDataset;
 /**
  *
  * @author Kampux
  */
-public class torta extends javax.swing.JInternalFrame {
-
-    static BufferedImage createBufferedImage(int width, int height) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+public class ventasmensuales extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form estadistica
+     * Creates new form barras
      */
-    public torta() {
+    public ventasmensuales() {
         initComponents();
     }
 
@@ -61,15 +61,16 @@ public class torta extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         panelGraficoTorta = new javax.swing.JDesktopPane();
         lblTorta = new javax.swing.JLabel();
         btnpdf = new javax.swing.JButton();
+        txtAño = new com.toedter.calendar.JYearChooser();
 
-        jButton2.setText("Mostrar Grafico");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Mostrar Grafico");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -85,7 +86,7 @@ public class torta extends javax.swing.JInternalFrame {
             panelGraficoTortaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGraficoTortaLayout.createSequentialGroup()
                 .addComponent(lblTorta)
-                .addGap(0, 268, Short.MAX_VALUE))
+                .addGap(0, 421, Short.MAX_VALUE))
         );
         panelGraficoTorta.setLayer(lblTorta, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -101,34 +102,46 @@ public class torta extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelGraficoTorta)
             .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(jButton2)
-                .addGap(27, 27, 27)
-                .addComponent(btnpdf)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGap(243, 243, 243)
+                .addComponent(txtAño, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(175, 175, 175)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(btnpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1))
+                .addContainerGap(94, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelGraficoTorta)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelGraficoTorta)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addComponent(txtAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(btnpdf))
+                .addComponent(btnpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(panelGraficoTorta)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        DefaultPieDataset porciones;
-        JFreeChart torta;
-         porciones=new DefaultPieDataset();
-         try {
+          JFreeChart barra = null;
+        DefaultCategoryDataset datos;
+        datos = new DefaultCategoryDataset();
+        
+        
+        try {
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
         } catch (SQLException ex) {
             Logger.getLogger(ventasmensuales.class.getName()).log(Level.SEVERE, null, ex);
@@ -150,41 +163,43 @@ public class torta extends javax.swing.JInternalFrame {
  //y los datos lo almacenamos en un ResultSet
  ResultSet rs = null;
         try {
+                 int año =txtAño.getYear();
 
+           rs = s.executeQuery("SELECT YEAR( fecha ) AS AÑO, MONTH( fecha ) AS MES, DAY( fecha ) AS DIA, MONTHNAME( fecha ) AS NOMBRE_MES, SUM( total ) AS TOTALGANANCIAMES,COUNT(TOTAL) AS CANTIDADVENTAS, CASE WHEN MONTH( fecha ) =1 THEN  \"Ene\" WHEN MONTH( fecha ) =2 THEN  \"Feb\" WHEN MONTH( fecha ) =3 THEN  \"Mar\" WHEN MONTH( fecha ) =4 THEN  \"Abr\" WHEN MONTH( fecha ) =5 THEN  \"May\" WHEN MONTH( fecha ) =6 THEN  \"Jun\" WHEN MONTH( fecha ) =7 THEN  \"Jul\" WHEN MONTH( fecha ) =8 THEN  \"Ago\" WHEN MONTH( fecha ) =9 THEN  \"Sep\" WHEN MONTH( fecha ) =10 THEN  \"Oct\" WHEN MONTH( fecha ) =11 THEN  \"Nov\" WHEN MONTH( fecha ) =12 THEN  \"Dic\" ELSE  \"esto no es un mes\" END AS MESespañol FROM ventas where fecha like '%"+año+"%' GROUP BY AÑO,MES");
 
-            rs = s.executeQuery("SELECT COUNT( sexo ) AS CANTIDAD, SEXO FROM usuarios WHERE perfil =1 GROUP BY sexo");
         } catch (SQLException ex) {
             Logger.getLogger(ventasmensuales.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         try {
-           
+          
             while(rs.next())
             {
-               
-                porciones.setValue(rs.getString("SEXO")+"= "+Integer.parseInt(rs.getString("CANTIDAD")),Integer.parseInt(rs.getString("CANTIDAD")));
+               datos.setValue(Integer.parseInt(rs.getString("CANTIDADVENTAS")),"",rs.getString("MESespañol"));
+                
+           
             }
         } catch (SQLException ex) {
             Logger.getLogger(ventasmensuales.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        int año =txtAño.getYear();
+        
+            barra = ChartFactory.createBarChart3D("MESES/VENTAS "+año+"", "MESES","VENTAS",datos,PlotOrientation.HORIZONTAL,false,true,true);
+        BufferedImage graficoBarra=barra.createBufferedImage(panelGraficoTorta.getWidth(), panelGraficoTorta.getHeight());
 
-        
-
-        
-        
-        torta=ChartFactory.createPieChart3D("USUARIOS/SEXO",porciones,false,true,false);
-        BufferedImage graficoTorta = torta.createBufferedImage(panelGraficoTorta.getWidth(), panelGraficoTorta.getHeight());
         lblTorta.setSize(panelGraficoTorta.getSize());
-        lblTorta.setIcon(new ImageIcon(graficoTorta));
+        lblTorta.setIcon(new ImageIcon(graficoBarra));
+
         panelGraficoTorta.updateUI();
         
         try {
-            ChartUtilities.saveChartAsJPEG(new File("ImagenEstadistica1Uso.jpg"), torta, graficoTorta.getWidth(), graficoTorta.getHeight());
+            ChartUtilities.saveChartAsJPEG(new File("ImagenEstadistica1Uso.jpg"), barra, graficoBarra.getWidth(), graficoBarra.getHeight());
             btnpdf.setEnabled(true);
         } catch (IOException ex) {
           JOptionPane.showMessageDialog(this, "Se ha producido un error al intentar guardar","Error",JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnpdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpdfActionPerformed
         // TODO add your handling code here:
@@ -226,7 +241,7 @@ public class torta extends javax.swing.JInternalFrame {
                 Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                documento.add(new Paragraph("ESTADOS"));
+                documento.add(new Paragraph("ESTADISTICA MESES/GANANCIAS"));
             } catch (DocumentException ex) {
                 Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -271,8 +286,9 @@ public class torta extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnpdf;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblTorta;
     private javax.swing.JDesktopPane panelGraficoTorta;
+    private com.toedter.calendar.JYearChooser txtAño;
     // End of variables declaration//GEN-END:variables
 }

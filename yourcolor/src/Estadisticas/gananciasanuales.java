@@ -13,12 +13,20 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.toedter.calendar.JDateChooser;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -33,12 +41,12 @@ import org.jfree.data.category.DefaultCategoryDataset;
  *
  * @author Kampux
  */
-public class barras extends javax.swing.JInternalFrame {
+public class gananciasanuales extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form barras
      */
-    public barras() {
+    public gananciasanuales() {
         initComponents();
     }
 
@@ -54,13 +62,7 @@ public class barras extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         panelGraficoTorta = new javax.swing.JDesktopPane();
         lblTorta = new javax.swing.JLabel();
-        txtval1 = new javax.swing.JTextField();
-        txtval2 = new javax.swing.JTextField();
-        txtval3 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnpdf = new javax.swing.JButton();
 
         jButton1.setText("Mostrar Grafico");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -75,26 +77,21 @@ public class barras extends javax.swing.JInternalFrame {
             panelGraficoTortaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGraficoTortaLayout.createSequentialGroup()
                 .addComponent(lblTorta)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 660, Short.MAX_VALUE))
         );
         panelGraficoTortaLayout.setVerticalGroup(
             panelGraficoTortaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGraficoTortaLayout.createSequentialGroup()
                 .addComponent(lblTorta)
-                .addGap(0, 222, Short.MAX_VALUE))
+                .addGap(0, 429, Short.MAX_VALUE))
         );
         panelGraficoTorta.setLayer(lblTorta, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel1.setText("A:");
-
-        jLabel2.setText("B:");
-
-        jLabel3.setText("C:");
-
-        jButton2.setText("PDF");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnpdf.setText("PDF");
+        btnpdf.setEnabled(false);
+        btnpdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnpdfActionPerformed(evt);
             }
         });
 
@@ -102,45 +99,29 @@ public class barras extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelGraficoTorta, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtval1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtval2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addGap(10, 10, 10)
-                .addComponent(txtval3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelGraficoTorta)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(272, 272, 272)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton1))
-                .addGap(26, 26, 26))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtval1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtval2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtval3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel3))
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelGraficoTorta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(panelGraficoTorta)
+                .addContainerGap())
         );
 
         pack();
@@ -151,10 +132,144 @@ public class barras extends javax.swing.JInternalFrame {
           JFreeChart barra = null;
         DefaultCategoryDataset datos;
         datos = new DefaultCategoryDataset();
-        datos.setValue(Integer.parseInt(txtval1.getText()), "A", "");
-        datos.setValue(Integer.parseInt(txtval2.getText()), "B", "");
-        datos.setValue(Integer.parseInt(txtval3.getText()), "C", "");       
-            barra = ChartFactory.createBarChart3D("Ejemplo Barras", "Trimestres","Ventas",datos,PlotOrientation.VERTICAL,true,true,true);
+        
+        try {
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        } catch (SQLException ex) {
+            Logger.getLogger(ventasmensuales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ Connection conexion = null;
+        try {
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost/yourcolor", "root", "");
+        } catch (SQLException ex) {
+            Logger.getLogger(ventasmensuales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ //Para ejecutar la consulta
+ Statement s = null;
+        try {
+            s = conexion.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(ventasmensuales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ //Ejecutamos la consulta que escribimos en la caja de texto
+ //y los datos lo almacenamos en un ResultSet
+ ResultSet rs = null;
+        try {
+               /*  int año =txtAño.getYear();
+                int mes =txtMes.getMonth();
+                int mesn=mes+1;
+                String mesnn="";
+                
+                switch(mesn)
+        
+                        {
+            case 1:
+            
+                        mesnn= "01"; 
+                break;
+                case 2:
+            
+                        mesnn= "02"; break;
+                    case 3:
+            
+                        mesnn= "03"; break;
+                        case 4:
+            
+                        mesnn= "04"; break;
+                            case 5:
+            
+                        mesnn= "05"; break;
+                                case 6:
+            
+                        mesnn= "06"; break;
+                                    case 7:
+            
+                        mesnn= "07"; break;
+                                        case 8:
+            
+                        mesnn= "08"; break;
+                                            case 9:
+            
+                        mesnn= "09"; 
+                                                     case 10:
+            
+                        mesnn= "10"; break;
+                                                      case 11:
+            
+                        mesnn= "11"; break;
+                                                           case 12:
+            
+                        mesnn= "12"; break;
+                                          
+                  }
+           */
+           rs = s.executeQuery("SELECT YEAR( fecha ) AS AÑO, MONTH( fecha ) AS MES, DAY( fecha ) AS DIA, MONTHNAME( fecha ) AS NOMBRE_MES, SUM( total ) AS TOTALGANANCIAAÑO,COUNT(TOTAL) AS CANTIDADVENTAS, CASE WHEN MONTH( fecha ) =1 THEN  \"Enero\" WHEN MONTH( fecha ) =2 THEN  \"Febrero\" WHEN MONTH( fecha ) =3 THEN  \"Marzo\" WHEN MONTH( fecha ) =4 THEN  \"Abril\" WHEN MONTH( fecha ) =5 THEN  \"Mayo\" WHEN MONTH( fecha ) =6 THEN  \"Junio\" WHEN MONTH( fecha ) =7 THEN  \"Julio\" WHEN MONTH( fecha ) =8 THEN  \"Agosto\" WHEN MONTH( fecha ) =9 THEN  \"Septiembre\" WHEN MONTH( fecha ) =10 THEN  \"Octubre\" WHEN MONTH( fecha ) =11 THEN  \"Noviembre\" WHEN MONTH( fecha ) =12 THEN  \"Diciembre\" ELSE  \"esto no es un mes\" END AS MESespañol FROM ventas GROUP BY AÑO");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ventasmensuales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+           
+            
+            while(rs.next())
+            {
+               datos.setValue(Integer.parseInt(rs.getString("TOTALGANANCIAAÑO")),"",rs.getString("año"));
+                
+          
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ventasmensuales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       /* int mes =txtMes.getMonth();
+        int mesn=mes+1;
+        String mesnn="";
+         switch(mesn)
+        
+                        {
+            case 1:
+            
+                        mesnn= "01"; 
+                break;
+                case 2:
+            
+                        mesnn= "02"; break;
+                    case 3:
+            
+                        mesnn= "03"; break;
+                        case 4:
+            
+                        mesnn= "04"; break;
+                            case 5:
+            
+                        mesnn= "05"; break;
+                                case 6:
+            
+                        mesnn= "06"; break;
+                                    case 7:
+            
+                        mesnn= "07"; break;
+                                        case 8:
+            
+                        mesnn= "08"; break;
+                                            case 9:
+            
+                        mesnn= "09"; break;
+                                                 case 10:
+            
+                        mesnn= "10"; break;
+                                                      case 11:
+            
+                        mesnn= "11"; break;
+                                                           case 12:
+            
+                        mesnn= "12"; break;
+                                          
+                              
+                                                
+                  }
+        int año =txtAño.getYear();*/
+            barra = ChartFactory.createBarChart3D("ANUALES/GANANCIAS"/*+año+"/"+mesnn+""*/, "AÑO","GANANCIAS",datos,PlotOrientation.HORIZONTAL,false,true,true);
         BufferedImage graficoBarra=barra.createBufferedImage(panelGraficoTorta.getWidth(), panelGraficoTorta.getHeight());
 
         lblTorta.setSize(panelGraficoTorta.getSize());
@@ -164,12 +279,13 @@ public class barras extends javax.swing.JInternalFrame {
         
         try {
             ChartUtilities.saveChartAsJPEG(new File("ImagenEstadistica1Uso.jpg"), barra, graficoBarra.getWidth(), graficoBarra.getHeight());
+            btnpdf.setEnabled(true);
         } catch (IOException ex) {
           JOptionPane.showMessageDialog(this, "Se ha producido un error al intentar guardar","Error",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnpdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpdfActionPerformed
         // TODO add your handling code here:
         JFileChooser seleccionar_archivo = new JFileChooser();
 
@@ -209,7 +325,7 @@ public class barras extends javax.swing.JInternalFrame {
                 Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                documento.add(new Paragraph("ESTADOS"));
+                documento.add(new Paragraph("ESTADISTICA MESES/GANANCIAS"));
             } catch (DocumentException ex) {
                 Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -249,19 +365,13 @@ public class barras extends javax.swing.JInternalFrame {
             }
             JOptionPane.showMessageDialog(this, "Documento PDF creado exitosamente!");
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnpdfActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnpdf;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblTorta;
     private javax.swing.JDesktopPane panelGraficoTorta;
-    private javax.swing.JTextField txtval1;
-    private javax.swing.JTextField txtval2;
-    private javax.swing.JTextField txtval3;
     // End of variables declaration//GEN-END:variables
 }
