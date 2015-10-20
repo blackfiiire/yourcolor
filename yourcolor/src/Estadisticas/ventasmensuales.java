@@ -185,7 +185,7 @@ public class ventasmensuales extends javax.swing.JInternalFrame {
         
         int año =txtAño.getYear();
         
-            barra = ChartFactory.createBarChart3D("MESES/VENTAS "+año+"", "MESES","VENTAS",datos,PlotOrientation.HORIZONTAL,false,true,true);
+            barra = ChartFactory.createBarChart3D("MESES/VENTAS "+año+"", "MESES","VENTAS",datos,PlotOrientation.VERTICAL,false,true,true);
         BufferedImage graficoBarra=barra.createBufferedImage(panelGraficoTorta.getWidth(), panelGraficoTorta.getHeight());
 
         lblTorta.setSize(panelGraficoTorta.getSize());

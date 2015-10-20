@@ -280,7 +280,7 @@ public class ventasdiarias extends javax.swing.JInternalFrame {
                                                 
                   }
         int año =txtAño.getYear();
-            barra = ChartFactory.createBarChart3D("MES/VENTAS "+año+"/"+mesnn+"", "DIAS","VENTAS",datos,PlotOrientation.HORIZONTAL,false,true,true);
+            barra = ChartFactory.createBarChart3D("MES/VENTAS "+año+"/"+mesnn+"", "DIAS","VENTAS",datos,PlotOrientation.VERTICAL,false,true,true);
         BufferedImage graficoBarra=barra.createBufferedImage(panelGraficoTorta.getWidth(), panelGraficoTorta.getHeight());
 
         lblTorta.setSize(panelGraficoTorta.getSize());
