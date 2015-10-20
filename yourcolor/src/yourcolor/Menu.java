@@ -5,6 +5,7 @@
  */
 package yourcolor;
 
+import Estadisticas.dePuebaa;
 import Estadisticas.gananciasanuales;
 import Estadisticas.gananciasdiarias;
 import Estadisticas.gananciasmensuales;
@@ -23,6 +24,7 @@ import MantenedorEstados.frmEliminarEstado;
 import MantenedorEstados.frmModificarEstado;
 import MantenedorEstados.frmVerTodosEstado;
 import static java.lang.System.exit;
+import javax.swing.JInternalFrame;
 
 
 
@@ -31,12 +33,14 @@ import static java.lang.System.exit;
  * @author Kampu
  */
 public class Menu extends javax.swing.JFrame {
-
+ ventasanuales vanu =new ventasanuales();
     /**
      * Creates new form Menu
      */
     public Menu() {
         initComponents();
+                jPanel.add(vanu);
+
     }
 
     /**
@@ -75,6 +79,9 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem16 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenu9 = new javax.swing.JMenu();
+        jMenuItem18 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -252,7 +259,22 @@ public class Menu extends javax.swing.JFrame {
 
         jMenu3.add(jMenu8);
 
+        jMenu7.setText("deprueba");
+        jMenu3.add(jMenu7);
+
         jMenuBar1.add(jMenu3);
+
+        jMenu9.setText("jMenu9");
+
+        jMenuItem18.setText("jMenuItem18");
+        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem18ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuItem18);
+
+        jMenuBar1.add(jMenu9);
 
         setJMenuBar(jMenuBar1);
 
@@ -355,13 +377,14 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
          gananciasanuales ganuales =new gananciasanuales();
         jPanel.add(ganuales);
+        vanu.dispose();
         ganuales.show();
+        
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
         // TODO add your handling code here:
-        ventasanuales vanu =new ventasanuales();
-        jPanel.add(vanu);
+       
         vanu.show();
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
@@ -370,6 +393,7 @@ public class Menu extends javax.swing.JFrame {
         productosdiarios proddiarios =new productosdiarios();
         jPanel.add(proddiarios);
         proddiarios.show();
+        
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
@@ -385,6 +409,17 @@ public class Menu extends javax.swing.JFrame {
         jPanel.add(prodanual);
         prodanual.show();
     }//GEN-LAST:event_jMenuItem17ActionPerformed
+
+    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
+        // TODO add your handling code here
+        
+        
+        dePuebaa proddd =new dePuebaa();
+        jPanel.add(proddd);
+        proddd.setUI(null);
+        proddd.show();
+        
+    }//GEN-LAST:event_jMenuItem18ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -428,7 +463,9 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
@@ -439,6 +476,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
+    private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
