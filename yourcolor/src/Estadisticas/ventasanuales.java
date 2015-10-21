@@ -31,6 +31,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
@@ -48,7 +49,11 @@ public class ventasanuales extends javax.swing.JInternalFrame {
      */
     public ventasanuales() {
         initComponents();
-         this.setSize(1172, 925);
+ 
+    }
+
+    public ventasanuales(String ventana_, boolean b, boolean b0, boolean b1, boolean b2) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

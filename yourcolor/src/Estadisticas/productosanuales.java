@@ -49,7 +49,6 @@ public class productosanuales extends javax.swing.JInternalFrame {
      */
     public productosanuales() {
         initComponents();
-         this.setSize(1172, 925);
     }
 
     /**

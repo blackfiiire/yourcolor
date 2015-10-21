@@ -48,7 +48,6 @@ public class ventasdiarias extends javax.swing.JInternalFrame {
      */
     public ventasdiarias() {
         initComponents();
-         this.setSize(1172, 925);
     }
 
     /**

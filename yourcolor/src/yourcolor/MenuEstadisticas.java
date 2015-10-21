@@ -63,15 +63,15 @@ this.setExtendedState(MAXIMIZED_BOTH);
                 panelRound1.add(bar);
                 panelRound1.add(gandiari); 
                 
-            /*   vanu.dispose();
-                prodmen.dispose();
-                proddiarios.dispose();
-                prodanual.dispose();
-                venbar.dispose();
-                ventadiarias.dispose();
-                ganuales.dispose();
-                bar.dispose();
-                gandiari.dispose();*/
+            /*   vanu.setVisible(false);
+                prodmen.setVisible(false);
+                proddiarios.setVisible(false);
+                prodanual.setVisible(false);
+                venbar.setVisible(false);
+                ventadiarias.setVisible(false);
+                ganuales.setVisible(false);
+                bar.setVisible(false);
+                gandiari.setVisible(false);*/
 
     }
 
@@ -108,7 +108,7 @@ this.setExtendedState(MAXIMIZED_BOTH);
         panelRound1.setLayout(panelRound1Layout);
         panelRound1Layout.setHorizontalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1170, Short.MAX_VALUE)
+            .addGap(0, 1120, Short.MAX_VALUE)
         );
         panelRound1Layout.setVerticalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,7 +194,7 @@ this.setExtendedState(MAXIMIZED_BOTH);
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, 1578, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,8 +211,9 @@ this.setExtendedState(MAXIMIZED_BOTH);
                             .addComponent(buttonAction8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(buttonAction6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
-                        .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50))
                     .addComponent(jSeparator2))
                 .addContainerGap())
         );
@@ -255,21 +256,47 @@ this.setExtendedState(MAXIMIZED_BOTH);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonAction1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAction1ActionPerformed
-        // TODO add your handling code here:
-         bar.setVisible(false);
-               
-        gandiari.setUI(null);
-        gandiari.show();
     
+           vanu.setVisible(false);
+                prodmen.setVisible(false);
+                proddiarios.setVisible(false);
+                prodanual.setVisible(false);
+                venbar.setVisible(false);
+                ventadiarias.setVisible(false);
+                ganuales.setVisible(false);
+                bar.setVisible(false);
+      
+        
+     try {
+                 
+
+         gandiari.setMaximum(true);
+     } catch (PropertyVetoException ex) {
+         Logger.getLogger(MenuEstadisticas.class.getName()).log(Level.SEVERE, null, ex);
+     }
+        gandiari.show();
+     
                
     }//GEN-LAST:event_buttonAction1ActionPerformed
 
     private void buttonAction2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAction2ActionPerformed
         
+vanu.setVisible(false);
+                prodmen.setVisible(false);
+                proddiarios.setVisible(false);
+                prodanual.setVisible(false);
+                venbar.setVisible(false);
+                ventadiarias.setVisible(false);
+                ganuales.setVisible(false);
                 gandiari.setVisible(false);
-                
-        bar.setUI(null);                 
-        bar.show();
+                             
+try {
+                 
+
+         bar.setMaximum(true);
+     } catch (PropertyVetoException ex) {
+         Logger.getLogger(MenuEstadisticas.class.getName()).log(Level.SEVERE, null, ex);
+     }        bar.show();
         
        
     }//GEN-LAST:event_buttonAction2ActionPerformed
@@ -277,51 +304,139 @@ this.setExtendedState(MAXIMIZED_BOTH);
     private void buttonAction3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAction3ActionPerformed
         // TODO add your handling code here:
         
+        vanu.setVisible(false);
+                prodmen.setVisible(false);
+                proddiarios.setVisible(false);
+                prodanual.setVisible(false);
+                venbar.setVisible(false);
+                ventadiarias.setVisible(false);
+                bar.setVisible(false);
+                gandiari.setVisible(false);
         
-        
-        ganuales.setUI(null);
-        ganuales.show();
+try {
+                 
+
+         ganuales.setMaximum(true);
+     } catch (PropertyVetoException ex) {
+         Logger.getLogger(MenuEstadisticas.class.getName()).log(Level.SEVERE, null, ex);
+     }        ganuales.show();
     }//GEN-LAST:event_buttonAction3ActionPerformed
 
     private void buttonAction4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAction4ActionPerformed
         // TODO add your handling code here:
-        
-        ventadiarias.setUI(null);
-        ventadiarias.show();
+        vanu.setVisible(false);
+                prodmen.setVisible(false);
+                proddiarios.setVisible(false);
+                prodanual.setVisible(false);
+                venbar.setVisible(false);
+                ganuales.setVisible(false);
+                bar.setVisible(false);
+                gandiari.setVisible(false);
+try {
+                 
+
+         ventadiarias.setMaximum(true);
+     } catch (PropertyVetoException ex) {
+         Logger.getLogger(MenuEstadisticas.class.getName()).log(Level.SEVERE, null, ex);
+     }        ventadiarias.show();
     }//GEN-LAST:event_buttonAction4ActionPerformed
 
     private void buttonAction5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAction5ActionPerformed
         // TODO add your handling code here:
-        
-        venbar.setUI(null);
-        venbar.show();
+        vanu.setVisible(false);
+                prodmen.setVisible(false);
+                proddiarios.setVisible(false);
+                prodanual.setVisible(false);
+                ventadiarias.setVisible(false);
+                ganuales.setVisible(false);
+                bar.setVisible(false);
+                gandiari.setVisible(false);
+try {
+                 
+
+         venbar.setMaximum(true);
+     } catch (PropertyVetoException ex) {
+         Logger.getLogger(MenuEstadisticas.class.getName()).log(Level.SEVERE, null, ex);
+     }        venbar.show();
     }//GEN-LAST:event_buttonAction5ActionPerformed
 
     private void buttonAction6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAction6ActionPerformed
         // TODO add your handling code here:
-        vanu.setUI(null);
-        vanu.show();
+                prodmen.setVisible(false);
+                proddiarios.setVisible(false);
+                prodanual.setVisible(false);
+                venbar.setVisible(false);
+                ventadiarias.setVisible(false);
+                ganuales.setVisible(false);
+                bar.setVisible(false);
+                gandiari.setVisible(false);
+try {
+                 
+
+         vanu.setMaximum(true);
+     } catch (PropertyVetoException ex) {
+         Logger.getLogger(MenuEstadisticas.class.getName()).log(Level.SEVERE, null, ex);
+     }        vanu.show();
     }//GEN-LAST:event_buttonAction6ActionPerformed
 
     private void buttonAction7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAction7ActionPerformed
         // TODO add your handling code here:
-        
-        prodanual.setUI(null);
+        vanu.setVisible(false);
+                prodmen.setVisible(false);
+                proddiarios.setVisible(false);
+                venbar.setVisible(false);
+                ventadiarias.setVisible(false);
+                ganuales.setVisible(false);
+                bar.setVisible(false);
+                gandiari.setVisible(false);
+        try {
+                 
+
+         prodanual.setMaximum(true);
+     } catch (PropertyVetoException ex) {
+         Logger.getLogger(MenuEstadisticas.class.getName()).log(Level.SEVERE, null, ex);
+     }
         prodanual.show();
     }//GEN-LAST:event_buttonAction7ActionPerformed
 
     private void buttonAction8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAction8ActionPerformed
         // TODO add your handling code here:
-         
-        proddiarios.setUI(null);
-        proddiarios.show();
+         vanu.setVisible(false);
+                prodmen.setVisible(false);
+                prodanual.setVisible(false);
+                venbar.setVisible(false);
+                ventadiarias.setVisible(false);
+                ganuales.setVisible(false);
+                bar.setVisible(false);
+                gandiari.setVisible(false);
+try {
+                 
+
+         proddiarios.setMaximum(true);
+     } catch (PropertyVetoException ex) {
+         Logger.getLogger(MenuEstadisticas.class.getName()).log(Level.SEVERE, null, ex);
+     }
+proddiarios.show();
     }//GEN-LAST:event_buttonAction8ActionPerformed
 
     private void buttonAction9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAction9ActionPerformed
         // TODO add your handling code here:
-        
-        prodmen.setUI(null);
-        prodmen.show();
+        vanu.setVisible(false);
+                proddiarios.setVisible(false);
+                prodanual.setVisible(false);
+                venbar.setVisible(false);
+                ventadiarias.setVisible(false);
+                ganuales.setVisible(false);
+                bar.setVisible(false);
+                gandiari.setVisible(false);
+try {
+                 
+
+         prodmen.setMaximum(true);
+     } catch (PropertyVetoException ex) {
+         Logger.getLogger(MenuEstadisticas.class.getName()).log(Level.SEVERE, null, ex);
+     }    
+prodmen.show();
     }//GEN-LAST:event_buttonAction9ActionPerformed
 
     /**

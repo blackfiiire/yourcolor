@@ -49,7 +49,6 @@ public class productosmensuales extends javax.swing.JInternalFrame {
      */
     public productosmensuales() {
         initComponents();
-         this.setSize(1172, 925);
     }
 
     /**
@@ -68,10 +67,12 @@ public class productosmensuales extends javax.swing.JInternalFrame {
         lblTorta = new javax.swing.JLabel();
         btnpdf = new javax.swing.JButton();
         txtAño = new com.toedter.calendar.JYearChooser();
-        txtMes = new com.toedter.calendar.JMonthChooser();
         jLabel1 = new javax.swing.JLabel();
+        txtMes = new com.toedter.calendar.JMonthChooser();
         txtcant = new javax.swing.JComboBox();
         jButton2 = new javax.swing.JButton();
+        labelHeader1 = new org.edisoncor.gui.label.LabelHeader();
+        jSeparator1 = new javax.swing.JSeparator();
 
         tabla1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -105,11 +106,11 @@ public class productosmensuales extends javax.swing.JInternalFrame {
             panelGraficoTortaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGraficoTortaLayout.createSequentialGroup()
                 .addComponent(lblTorta)
-                .addGap(0, 429, Short.MAX_VALUE))
+                .addGap(0, 401, Short.MAX_VALUE))
         );
         panelGraficoTorta.setLayer(lblTorta, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        btnpdf.setText("PDF");
+        btnpdf.setText("Generar documento PDF con Gráfico");
         btnpdf.setEnabled(false);
         btnpdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,59 +118,67 @@ public class productosmensuales extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setText("Cantidad");
+        jLabel1.setText("Top:");
 
-        txtcant.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "3", "5", "10" }));
+        txtcant.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "3", "6","9","12" }));
 
-        jButton2.setText("PDF DETALLE");
+        jButton2.setText("Generar documento PDF con Detalle General");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
+        labelHeader1.setText("TopProductos Mensuales Vendidos");
+        labelHeader1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtAño, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtcant, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnpdf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(btnpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(panelGraficoTorta))
+                                .addComponent(txtAño, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtcant, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE))
+                    .addComponent(jSeparator1)
+                    .addComponent(panelGraficoTorta, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jLabel1)
-                        .addComponent(txtcant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2))
-                    .addComponent(txtAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(labelHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1)
+                                .addComponent(txtcant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelGraficoTorta)
                 .addContainerGap())
         );
@@ -319,7 +328,7 @@ System.out.println(año+mesnn);
                                                 
                   }
         int año =txtAño.getYear();
-            barra = ChartFactory.createBarChart3D("MES/TOP PRODUCTOS "+año+"/"+mesnn+"", "PRODUCTOS","TOP PRODUCTOS",datos,PlotOrientation.HORIZONTAL,false,true,true);
+            barra = ChartFactory.createBarChart3D("MES/TOP PRODUCTOS VENDIDOS"+año+"/"+mesnn+"", "PRODUCTOS","CANTIDAD VENDIDO",datos,PlotOrientation.HORIZONTAL,false,true,true);
         BufferedImage graficoBarra=barra.createBufferedImage(panelGraficoTorta.getWidth(), panelGraficoTorta.getHeight());
 
         lblTorta.setSize(panelGraficoTorta.getSize());
@@ -341,16 +350,39 @@ System.out.println(año+mesnn);
 
         int opcion=seleccionar_archivo.showSaveDialog(null);
         if(opcion==seleccionar_archivo.APPROVE_OPTION){
-
+         
             OutputStream archivo = null;
+      
             try {
-                archivo = new FileOutputStream(seleccionar_archivo.getSelectedFile());
-
+                archivo = new FileOutputStream(seleccionar_archivo.getSelectedFile()+".pdf");
+            File JFC = seleccionar_archivo.getSelectedFile();                       
+            String PATH = JFC.getAbsolutePath();//obtenemos el path del archivo a guardar
+           
+            File file = new File(PATH+".pdf");
+           
+            boolean fileExists = file.exists();
+            if(!fileExists==false)
+{
+    JOptionPane.showConfirmDialog(this,"El fichero existe,deseas reemplazarlo?","Titulo",JOptionPane.YES_NO_OPTION);
+//Has aceptado...has lo kieras......
+}
+                
+                
+                
+            
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             Document documento = new Document();
+            
+            
+            //File JFC = seleccionar_archivo.getSelectedFile();                       
+            //String PATH = JFC.getAbsolutePath();//obtenemos el path del archivo a guardar
+            /*if(!(PATH.endsWith(".pdf"))){
+                File temp = new File(PATH+".pdf");
+                JFC.renameTo(temp);//renombramos el archivo
+            }*/
             try {
                 PdfWriter.getInstance(documento, archivo);
             } catch (DocumentException ex) {
@@ -407,14 +439,10 @@ System.out.println(año+mesnn);
             }
             //
             documento.close();
-            File JFC = seleccionar_archivo.getSelectedFile();
-            String PATH = JFC.getAbsolutePath();//obtenemos el path del archivo a guardar
-            if(!(PATH.endsWith(".pdf"))){
-                File temp = new File(PATH+".pdf");
-                JFC.renameTo(temp);//renombramos el archivo
-            }
+           
             JOptionPane.showMessageDialog(this, "Documento PDF creado exitosamente!");
         }
+
     }//GEN-LAST:event_btnpdfActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -635,12 +663,7 @@ catch ( Exception e )
             }
             //
             documento.close();
-             File JFC = seleccionar_archivo.getSelectedFile();
-                 String PATH = JFC.getAbsolutePath();//obtenemos el path del archivo a guardar
-                 if(!(PATH.endsWith(".pdf"))){
-                        File temp = new File(PATH+".pdf");
-                        JFC.renameTo(temp);//renombramos el archivo
-                    }
+             
           JOptionPane.showMessageDialog(this, "Documento PDF creado exitosamente!");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -652,6 +675,8 @@ catch ( Exception e )
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private org.edisoncor.gui.label.LabelHeader labelHeader1;
     private javax.swing.JLabel lblTorta;
     private javax.swing.JDesktopPane panelGraficoTorta;
     private javax.swing.JTable tabla1;

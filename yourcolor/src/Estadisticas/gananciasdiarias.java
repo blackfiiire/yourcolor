@@ -49,7 +49,7 @@ public class gananciasdiarias extends javax.swing.JInternalFrame {
      */
     public gananciasdiarias() {
         initComponents();
-        this.setSize(1172, 925);
+        
     }
 
     /**
