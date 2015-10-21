@@ -48,6 +48,7 @@ public class gananciasmensuales extends javax.swing.JInternalFrame {
      */
     public gananciasmensuales() {
         initComponents();
+         this.setSize(1172, 925);
     }
 
     /**

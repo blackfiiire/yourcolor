@@ -14,6 +14,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.toedter.calendar.JDateChooser;
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -48,6 +49,7 @@ public class gananciasdiarias extends javax.swing.JInternalFrame {
      */
     public gananciasdiarias() {
         initComponents();
+        this.setSize(1172, 925);
     }
 
     /**
@@ -85,7 +87,7 @@ public class gananciasdiarias extends javax.swing.JInternalFrame {
             panelGraficoTortaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGraficoTortaLayout.createSequentialGroup()
                 .addComponent(lblTorta)
-                .addGap(0, 425, Short.MAX_VALUE))
+                .addGap(0, 807, Short.MAX_VALUE))
         );
         panelGraficoTorta.setLayer(lblTorta, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -104,9 +106,9 @@ public class gananciasdiarias extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
+                        .addGap(72, 72, 72)
                         .addComponent(txtAño, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)
+                        .addGap(49, 49, 49)
                         .addComponent(txtMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(72, 72, 72)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,7 +116,7 @@ public class gananciasdiarias extends javax.swing.JInternalFrame {
                                 .addGap(10, 10, 10)
                                 .addComponent(btnpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jButton1))
-                        .addGap(0, 210, Short.MAX_VALUE))
+                        .addGap(0, 686, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(panelGraficoTorta)))

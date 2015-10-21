@@ -49,6 +49,7 @@ public class productosmensuales extends javax.swing.JInternalFrame {
      */
     public productosmensuales() {
         initComponents();
+         this.setSize(1172, 925);
     }
 
     /**

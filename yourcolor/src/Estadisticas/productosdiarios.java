@@ -55,6 +55,7 @@ public class productosdiarios extends javax.swing.JInternalFrame {
      */
     public productosdiarios() {
         initComponents();
+         this.setSize(1172, 925);
         Calendar c2 = new GregorianCalendar();
         txtfecha.setCalendar(c2);
     }

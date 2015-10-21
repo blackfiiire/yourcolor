@@ -50,6 +50,7 @@ public class ventasmensuales extends javax.swing.JInternalFrame {
      */
     public ventasmensuales() {
         initComponents();
+         this.setSize(1172, 925);
     }
 
     /**

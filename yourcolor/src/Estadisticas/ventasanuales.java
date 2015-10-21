@@ -48,6 +48,7 @@ public class ventasanuales extends javax.swing.JInternalFrame {
      */
     public ventasanuales() {
         initComponents();
+         this.setSize(1172, 925);
     }
 
     /**

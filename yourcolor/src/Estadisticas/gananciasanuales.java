@@ -48,6 +48,7 @@ public class gananciasanuales extends javax.swing.JInternalFrame {
      */
     public gananciasanuales() {
         initComponents();
+         this.setSize(1172, 925);
     }
 
     /**
@@ -63,6 +64,8 @@ public class gananciasanuales extends javax.swing.JInternalFrame {
         panelGraficoTorta = new javax.swing.JDesktopPane();
         lblTorta = new javax.swing.JLabel();
         btnpdf = new javax.swing.JButton();
+
+        setPreferredSize(new java.awt.Dimension(1172, 937));
 
         jButton1.setText("Mostrar Grafico");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -342,7 +345,7 @@ public class gananciasanuales extends javax.swing.JInternalFrame {
             try
             {
                 Image foto = Image.getInstance("ImagenEstadistica1Uso.jpg");
-                foto.scaleToFit(400, 400);
+                foto.scaleToFit(520, 600);
                 foto.setAlignment(Chunk.ALIGN_MIDDLE);
                 documento.add(foto);
             }

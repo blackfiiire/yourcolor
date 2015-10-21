@@ -21,6 +21,7 @@ public static String Tipo;
      */
     public Login() {
         initComponents();
+       
     }
 
     /**
