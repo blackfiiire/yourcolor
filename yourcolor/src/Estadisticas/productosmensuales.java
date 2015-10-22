@@ -32,6 +32,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
@@ -347,42 +348,46 @@ System.out.println(año+mesnn);
     private void btnpdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpdfActionPerformed
         // TODO add your handling code here:
         JFileChooser seleccionar_archivo = new JFileChooser();
-
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Documento PDF","pdf");
+seleccionar_archivo.setFileFilter(filtro);
         int opcion=seleccionar_archivo.showSaveDialog(null);
-        if(opcion==seleccionar_archivo.APPROVE_OPTION){
+        
+         System.out.println(seleccionar_archivo);
+          File JFC = seleccionar_archivo.getSelectedFile();          
+            String PATH = JFC.getAbsolutePath();//obtenemos el path del archivo a guardar           
+            File file = new File(PATH+".pdf");
+            boolean fileExists = file.exists();
+ if(fileExists==true)
+{
+int seleccion = JOptionPane.showOptionDialog(
+    this, // Componente padre
+    "¿Desea sobreescribir el fichero con el mismo nombre?", //Mensaje
+    "ADVERTENCIA", // Título
+    JOptionPane.YES_NO_CANCEL_OPTION,
+    JOptionPane.QUESTION_MESSAGE,
+    null,    // null para icono por defecto.
+    new Object[] { "Si", "No","Cancelar",},    // null para YES, NO y CANCEL
+    "Si");
+if (seleccion != -1)
+{
+   if((seleccion + 1)==1)
+   {
+       
+        System.out.println("PRESIONO SI");
+         if(opcion==seleccionar_archivo.APPROVE_OPTION){
          
+          
             OutputStream archivo = null;
       
             try {
                 archivo = new FileOutputStream(seleccionar_archivo.getSelectedFile()+".pdf");
-            File JFC = seleccionar_archivo.getSelectedFile();                       
-            String PATH = JFC.getAbsolutePath();//obtenemos el path del archivo a guardar
-           
-            File file = new File(PATH+".pdf");
-           
-            boolean fileExists = file.exists();
-            if(!fileExists==false)
-{
-    JOptionPane.showConfirmDialog(this,"El fichero existe,deseas reemplazarlo?","Titulo",JOptionPane.YES_NO_OPTION);
-//Has aceptado...has lo kieras......
-}
-                
-                
-                
             
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             Document documento = new Document();
-            
-            
-            //File JFC = seleccionar_archivo.getSelectedFile();                       
-            //String PATH = JFC.getAbsolutePath();//obtenemos el path del archivo a guardar
-            /*if(!(PATH.endsWith(".pdf"))){
-                File temp = new File(PATH+".pdf");
-                JFC.renameTo(temp);//renombramos el archivo
-            }*/
+          
             try {
                 PdfWriter.getInstance(documento, archivo);
             } catch (DocumentException ex) {
@@ -439,8 +444,93 @@ System.out.println(año+mesnn);
             }
             //
             documento.close();
-           
+ 
             JOptionPane.showMessageDialog(this, "Documento PDF creado exitosamente!");
+   }
+   }
+   else if((seleccion + 1)==2)
+   {
+             System.out.println("PRESIONO NO");
+             
+       seleccionar_archivo.showSaveDialog(null);
+   }else{
+                System.out.println("PRESIONO CANCELAR");
+   }
+}
+}else{
+        if(opcion==seleccionar_archivo.APPROVE_OPTION){
+         
+          
+            OutputStream archivo = null;
+      
+            try {
+                archivo = new FileOutputStream(seleccionar_archivo.getSelectedFile()+".pdf");
+            
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            Document documento = new Document();
+          
+            try {
+                PdfWriter.getInstance(documento, archivo);
+            } catch (DocumentException ex) {
+                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            PdfPTable t = new PdfPTable(3);
+            documento.open();
+            try
+            {
+                Image foto = Image.getInstance("logo.png");
+                foto.scaleToFit(100, 100);
+                foto.setAlignment(Chunk.ALIGN_LEFT);
+                documento.add(foto);
+            }
+            catch ( Exception e )
+            {
+                e.printStackTrace();
+            }
+            try {
+                documento.add(new Paragraph("                                                "));
+            } catch (DocumentException ex) {
+                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                documento.add(new Paragraph("ESTADISTICA MESES/GANANCIAS"));
+            } catch (DocumentException ex) {
+                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                documento.add(new Paragraph(" "));
+            } catch (DocumentException ex) {
+                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                documento.add(new Paragraph(" "));
+            } catch (DocumentException ex) {
+                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try
+            {
+                Image foto = Image.getInstance("ImagenEstadistica1Uso.jpg");
+                foto.scaleToFit(400, 400);
+                foto.setAlignment(Chunk.ALIGN_MIDDLE);
+                documento.add(foto);
+            }
+            catch ( Exception e )
+            {
+                e.printStackTrace();
+            }
+            try {
+                documento.add(t);
+            } catch (DocumentException ex) {
+                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //
+            documento.close();
+ 
+            JOptionPane.showMessageDialog(this, "Documento PDF creado exitosamente!");
+ }
         }
 
     }//GEN-LAST:event_btnpdfActionPerformed
