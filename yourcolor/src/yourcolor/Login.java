@@ -4,24 +4,44 @@
  * and open the template in the editor.
  */
 package yourcolor;
+import Estadisticas.ventasmensuales;
 
-import java.sql.*;
+import com.sun.awt.AWTUtilities;
+import java.awt.Color;
+import java.awt.Shape;
+import java.awt.TextField;
+import java.awt.event.KeyEvent;
+import java.awt.geom.RoundRectangle2D;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.jdesktop.swingx.prompt.PromptSupport;
+import static yourcolor.Variable.Rut;
+
 
 /**
  *
- * @author Administrador
+ * @author Kampu
  */
 public class Login extends javax.swing.JFrame {
-public static String Tipo;
+
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
-       
+        this.setLocationRelativeTo(null);
+        Shape forma =new RoundRectangle2D.Double(0,0,this.getBounds().width,this.getBounds().height,27,27);
+        AWTUtilities.setWindowShape(this,forma);
+        
+
+        
+        
     }
 
     /**
@@ -33,124 +53,315 @@ public static String Tipo;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tfRut = new javax.swing.JTextField();
+        panel1 = new org.edisoncor.gui.panel.Panel();
+        txtclave = new org.edisoncor.gui.passwordField.PasswordFieldRectIcon();
+        txtrut = new org.edisoncor.gui.textField.TextFieldRectIcon();
         jLabel1 = new javax.swing.JLabel();
-        btnEntrar = new javax.swing.JButton();
-        tfPassword = new javax.swing.JPasswordField();
+        btniniciar = new org.edisoncor.gui.button.ButtonSeven();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel4 = new javax.swing.JLabel();
+        buttonSeven2 = new org.edisoncor.gui.button.ButtonSeven();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
-        tfRut.setFont(new java.awt.Font("Impact", 0, 14)); // NOI18N
+        panel1.setColorPrimario(new java.awt.Color(102, 102, 102));
 
-        jLabel1.setFont(new java.awt.Font("Impact", 3, 36)); // NOI18N
-        jLabel1.setText("Login");
-
-        btnEntrar.setFont(new java.awt.Font("Impact", 0, 14)); // NOI18N
-        btnEntrar.setText("Entrar");
-        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
+        txtclave.setBackground(new java.awt.Color(204, 204, 204));
+        txtclave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/secure-server-px-png.png"))); // NOI18N
+        txtclave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEntrarActionPerformed(evt);
+                txtclaveActionPerformed(evt);
+            }
+        });
+        txtclave.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtclaveFocusLost(evt);
+            }
+        });
+        txtclave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtclaveKeyPressed(evt);
             }
         });
 
-        tfPassword.setFont(new java.awt.Font("Impact", 0, 14)); // NOI18N
+        txtrut.setBackground(new java.awt.Color(204, 204, 204));
+        txtrut.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtrut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/man.png"))); // NOI18N
+        txtrut.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtrutCaretUpdate(evt);
+            }
+        });
+        txtrut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtrutMouseClicked(evt);
+            }
+        });
+        txtrut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtrutActionPerformed(evt);
+            }
+        });
+        txtrut.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtrutFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtrutFocusLost(evt);
+            }
+        });
+        txtrut.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtrutKeyPressed(evt);
+            }
+        });
 
-        jLabel2.setFont(new java.awt.Font("Impact", 0, 14)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icono.png"))); // NOI18N
+
+        btniniciar.setBackground(new java.awt.Color(0, 102, 255));
+        btniniciar.setText("Iniciar");
+        btniniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btniniciarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(204, 204, 255));
         jLabel2.setText("Rut");
+        jLabel2.setToolTipText("");
 
-        jLabel3.setFont(new java.awt.Font("Impact", 0, 14)); // NOI18N
-        jLabel3.setText("Password");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(204, 204, 255));
+        jLabel3.setText("Clave");
+        jLabel3.setToolTipText("");
+
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(204, 204, 255));
+        jLabel4.setText("LOGIN YOURCOLOR");
+        jLabel4.setToolTipText("");
+
+        buttonSeven2.setBackground(new java.awt.Color(0, 102, 255));
+        buttonSeven2.setText("Salir");
+        buttonSeven2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSeven2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
+        panel1.setLayout(panel1Layout);
+        panel1Layout.setHorizontalGroup(
+            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
+            .addGroup(panel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtrut, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtclave, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(buttonSeven2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btniniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        panel1Layout.setVerticalGroup(
+            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtrut, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(11, 11, 11)
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtclave, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btniniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonSeven2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addGap(77, 77, 77))))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(133, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tfRut, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                    .addComponent(tfPassword))
-                .addContainerGap(133, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(185, 185, 185)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(163, 163, 163)
-                .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(jLabel1)
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfRut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(33, 33, 33)
-                .addComponent(btnEntrar)
-                .addContainerGap(80, Short.MAX_VALUE))
+            .addComponent(panel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+    private void txtclaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtclaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtclaveActionPerformed
+
+    private void txtrutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtrutActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtrutActionPerformed
+
+    private void txtrutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtrutMouseClicked
+        // TODO add your handling code here:
+        txtrut.setForeground(Color.BLACK);  
+        txtrut.setText("");
+    }//GEN-LAST:event_txtrutMouseClicked
+
+    private void txtrutFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtrutFocusLost
+        // TODO add your handling code here:
+                                formatear(txtrut.getText());
+                                validar(txtrut.getText());
+        if(txtrut.getText().equals("")){
+txtrut.setForeground(Color.GRAY);
+           txtrut.setText("Ej 11.111.111-1");
+       }else {
+          
+       }
+        
+    
+    }//GEN-LAST:event_txtrutFocusLost
+
+    private void txtrutFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtrutFocusGained
+        // TODO add your handling code here:
+       if(txtrut.getText().equals("")){
+           txtrut.setForeground(Color.GRAY);
+
+           txtrut.setText("Ej 11.111.111-1");
+       }else{
+       }
+        
+    }//GEN-LAST:event_txtrutFocusGained
+
+    private void txtrutKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtrutKeyPressed
+        // TODO add your handling code here:
+        if(txtrut.getText().equals("Ej 11.111.111-1")){
+           txtrut.setForeground(Color.BLACK);
+
+           txtrut.setText("");
+       }else if(txtrut.getText()!="")
+               {
+          txtclave.setEnabled(true);
+       }
+    }//GEN-LAST:event_txtrutKeyPressed
+
+    private void btniniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btniniciarActionPerformed
+        // TODO add your handling code here:
+         try {
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        } catch (SQLException ex) {
+            Logger.getLogger(ventasmensuales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ Connection conexion = null;
+        try {
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost/yourcolor", "root", "");
+        } catch (SQLException ex) {
+            Logger.getLogger(ventasmensuales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ //Para ejecutar la consulta
+ Statement s = null;
+        try {
+            s = conexion.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(ventasmensuales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String rut=txtrut.getText();
+            String contrasena=txtclave.getText();
+        try {
+             ResultSet rs = s.executeQuery("SELECT * from usuarios where ((rut='"+rut+"') && (contrasena="+contrasena+") && (perfil between 2 and 4) && (estado=1))");
+             
+             
+                if(rs.first()){//recorre el resultset al siguiente registro si es que existen
+                rs.beforeFirst();//regresa el puntero al primer registro
+                    PPrincipal verformulario2=new PPrincipal(); 
+ 
+                                    //línea 2-hacemos visible el formulario que queremos llamar 
+                                    verformulario2.setVisible(true);                                     
+                        //línea 1-instanciamos un objeto de la clase Formulario2.java                                                 
+                          this.dispose();
+                }
+                else{
+                //esta vacio el resultset
+                     System.out.println("vacio");
+                                      JOptionPane.showMessageDialog(this, "¡Datos Incorrectos!, intentelo nuevamente...","Error",JOptionPane.ERROR_MESSAGE,null);
+
+                }
+                         
+
+                
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+          JOptionPane.showMessageDialog(this, "¡Datos Incorrectos!, intentelo nuevamente...","Error",JOptionPane.ERROR_MESSAGE,null);
+        }
+    }//GEN-LAST:event_btniniciarActionPerformed
+
+    private void buttonSeven2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSeven2ActionPerformed
+        // TODO add your handling code here:
+        int seleccion = JOptionPane.showOptionDialog(
+    this, // Componente padre
+    "¿Desea Salir?", //Mensaje
+    "ADVERTENCIA", // Título
+    JOptionPane.YES_NO_OPTION,
+    JOptionPane.QUESTION_MESSAGE,
+    null,    // null para icono por defecto.
+    new Object[] { "Si", "No",},    // null para YES, NO y CANCEL
+    "Si");
+if (seleccion != -1)
+{
+   if((seleccion + 1)==1)
+   {
+       
+        System.out.println("PRESIONO SI");
+        this.dispose();
+   }
+}
+    }//GEN-LAST:event_buttonSeven2ActionPerformed
+
+    private void txtclaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtclaveKeyPressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtclaveKeyPressed
+
+    private void txtclaveFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtclaveFocusLost
         // TODO add your handling code here:
         
-        Conexion conexion = new Conexion();
-        Connection cn = conexion.conectar();
-        
-        conexion.conectar();
-        
-        String usuario = tfRut.getText();
-        String password= tfPassword.getText();
-        String estado ="SELECT * FROM usuarios WHERE rut="+usuario+" and contrasena = '"+password+"' and estado = 1 ";
-        String perfil = "SELECT perfil FROM usuarios WHERE rut="+usuario+"";
-        
-            
-                //Crear consulta para administrador
-                
-                   try {
-                  String Query = "SELECT * FROM usuarios WHERE rut = "+usuario+" and contrasena = '"+password+"' and perfil = '"+perfil+"' ";
-                  Statement st;
-                  st = cn.createStatement();
-                  ResultSet rs = st.executeQuery(Query);
-                  
-                        
-                if(rs.next())
-                {
-                switch(perfil){
-                    
-                    case "3":
-                    Variable.Rut = tfRut.getText();
-                    this.dispose();
-                    PPrincipal PP = new PPrincipal();
-                    PP.setVisible(true);
-                    
-                
-                }
-                    
-                }
-                } catch (SQLException ex) {
-                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                   
-                     
-        
-    }//GEN-LAST:event_btnEntrarActionPerformed
+    }//GEN-LAST:event_txtclaveFocusLost
+
+    private void txtrutCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtrutCaretUpdate
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtrutCaretUpdate
 
     /**
      * @param args the command line arguments
@@ -178,22 +389,82 @@ public static String Tipo;
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
             }
+             
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEntrar;
+    public static org.edisoncor.gui.button.ButtonSeven btniniciar;
+    private org.edisoncor.gui.button.ButtonSeven buttonSeven2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField tfPassword;
-    private javax.swing.JTextField tfRut;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JSeparator jSeparator1;
+    private org.edisoncor.gui.panel.Panel panel1;
+    public static org.edisoncor.gui.passwordField.PasswordFieldRectIcon txtclave;
+    public static org.edisoncor.gui.textField.TextFieldRectIcon txtrut;
     // End of variables declaration//GEN-END:variables
+
+    
+       static public String formatear(String rut){
+        int cont=0;
+        String formato;
+        if(rut.length() == 0){
+            return "";
+        }else{
+            rut = rut.replace(".", "");
+            rut = rut.replace("-", "");
+            formato = "-"+rut.substring(rut.length()-1);
+            for(int i = rut.length()-2;i>=0;i--){
+                formato = rut.substring(i, i+1)+formato;
+                cont++;
+                if(cont == 3 && i != 0){
+                    formato = "."+formato;
+                    cont = 0;
+                }
+            }
+                                                             System.out.println(formato);
+                                                                txtrut.setText(formato);
+            return formato;
+            
+        }
+     //To change body of generated methods, choose Tools | Templates.
+        
+    }
+      static public boolean validar(String rut){
+        int suma=0;
+        String dvR,dvT;
+        int[] serie = {2,3,4,5,6,7};
+        rut = rut.replace(".", "");
+        rut = rut.replace("-", "");
+        dvR = rut.substring(rut.length()-1);
+        for(int i = rut.length()-2;i>=0; i--){
+            suma +=  Integer.valueOf(rut.substring(i, i+1))
+                    *serie[(rut.length()-2-i)%6];
+        }
+        dvT=String.valueOf(11-suma%11);
+        if(dvT.compareToIgnoreCase("10") == 0){
+            dvT = "K";
+        }
+
+        if(dvT.compareToIgnoreCase(dvR) == 0){
+                        System.out.println("valido");
+
+            return true;
+                                                               // txtrut.setText(formato);
+        } else {
+                        System.out.println("invalido");
+
+            return false;
+                                                               // txtrut.setText(formato);
+        }
+    } 
 }

@@ -5,6 +5,16 @@
  */
 package yourcolor;
 
+import Estadisticas.ventasmensuales;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static yourcolor.Login.txtrut;
+
 /**
  *
  * @author Administrador
@@ -14,9 +24,65 @@ public class PPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form PPrincipal
      */
-    public PPrincipal() {
+    public PPrincipal() throws SQLException {
         initComponents();
+        txtrut.setText(Login.txtrut.getText());
+        
+        try {
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        } catch (SQLException ex) {
+            Logger.getLogger(ventasmensuales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ Connection conexion = null;
+        try {
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost/yourcolor", "root", "");
+        } catch (SQLException ex) {
+            Logger.getLogger(ventasmensuales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ //Para ejecutar la consulta
+ Statement s = null;
+        try {
+            s = conexion.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(ventasmensuales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String rut=txtrut.getText();
+             ResultSet rs = s.executeQuery("SELECT * from usuarios where (rut='"+rut+"')");
+                      
+         
+         while (rs.next()) {//mientras tenga registros que haga lo siguiente
+                        //contenido
+                             System.out.println(rs.getString("nombres"));
+                            txtnombre.setText(rs.getString("nombres")+" "+rs.getString("apellidos"));
+                            lblperfil1.setText(rs.getString("perfil"));
+
+                            switch(rs.getInt("perfil"))
+        {
+            case 2:
+                           lblperfil.setText("Empleado");
+                break;
+            case 3:
+                            lblperfil.setText("Administrador");            
+                            break;
+             case 4:
+                            lblperfil.setText("Bodeguero");
+                            break;
+        }
+
+                        }
+         
+       if(Integer.parseInt(lblperfil1.getText())==2){
+btn3.setEnabled(false);
+System.out.println("HABILITADO");
+        }else if(Integer.parseInt(lblperfil1.getText())==4){
+btn1.setEnabled(false);
+btn2.setEnabled(false);
+
+System.out.println("HABILITADO");
+        }
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,27 +94,77 @@ public class PPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        txtrut = new javax.swing.JTextField();
+        txtnombre = new javax.swing.JTextField();
+        lblperfil = new javax.swing.JLabel();
+        lblperfil1 = new javax.swing.JLabel();
+        btn1 = new javax.swing.JButton();
+        btn2 = new javax.swing.JButton();
+        btn3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Impact", 3, 48)); // NOI18N
         jLabel1.setText("Bienvenido");
 
+        txtrut.setEditable(false);
+
+        txtnombre.setEditable(false);
+
+        lblperfil.setText("jLabel2");
+
+        lblperfil1.setText("jLabel2");
+
+        btn1.setText("admin,emple");
+
+        btn2.setText("admin,emple");
+
+        btn3.setText("admin,bodeg");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(213, 213, 213)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(243, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addComponent(txtrut, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblperfil, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblperfil1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(175, 175, 175)
-                .addComponent(jLabel1)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblperfil, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblperfil1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtrut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(106, 106, 106)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn2, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                    .addComponent(btn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(176, Short.MAX_VALUE))
         );
 
         pack();
@@ -85,12 +201,23 @@ public class PPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PPrincipal().setVisible(true);
+                try {
+                    new PPrincipal().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn1;
+    private javax.swing.JButton btn2;
+    private javax.swing.JButton btn3;
     private javax.swing.JLabel jLabel1;
+    public static javax.swing.JLabel lblperfil;
+    public static javax.swing.JLabel lblperfil1;
+    public static javax.swing.JTextField txtnombre;
+    public static javax.swing.JTextField txtrut;
     // End of variables declaration//GEN-END:variables
 }
