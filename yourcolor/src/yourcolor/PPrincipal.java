@@ -6,6 +6,10 @@
 package yourcolor;
 
 import Estadisticas.ventasmensuales;
+import MantenedorPerfiles.Perfiles;
+import Ventas.frmVentas;
+import Ventas.variables;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -26,7 +30,8 @@ public class PPrincipal extends javax.swing.JFrame {
      */
     public PPrincipal() throws SQLException {
         initComponents();
-        txtrut.setText(Login.txtrut.getText());
+        this.getContentPane().setBackground(Color.DARK_GRAY);
+        labelRut.setText(Login.txtrut.getText());
         
         try {
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
@@ -46,14 +51,15 @@ public class PPrincipal extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(ventasmensuales.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String rut=txtrut.getText();
+        String rut=labelRut.getText();
+        variables.Rut = labelRut.getText();
              ResultSet rs = s.executeQuery("SELECT * from usuarios where (rut='"+rut+"')");
                       
          
          while (rs.next()) {//mientras tenga registros que haga lo siguiente
                         //contenido
                              System.out.println(rs.getString("nombres"));
-                            txtnombre.setText(rs.getString("nombres")+" "+rs.getString("apellidos"));
+                            labelNombre.setText(rs.getString("nombres")+" "+rs.getString("apellidos"));
                             lblperfil1.setText(rs.getString("perfil"));
 
                             switch(rs.getInt("perfil"))
@@ -80,8 +86,12 @@ btn2.setEnabled(false);
 
 System.out.println("HABILITADO");
         }
+       
     }
     
+       //Instancias de pantallas internas
+       frmVentas PVentas = new frmVentas();
+       Perfiles PPerfiles = new Perfiles();
     
 
     /**
@@ -94,81 +104,150 @@ System.out.println("HABILITADO");
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txtrut = new javax.swing.JTextField();
-        txtnombre = new javax.swing.JTextField();
         lblperfil = new javax.swing.JLabel();
         lblperfil1 = new javax.swing.JLabel();
         btn1 = new javax.swing.JButton();
         btn2 = new javax.swing.JButton();
         btn3 = new javax.swing.JButton();
+        Dp = new javax.swing.JDesktopPane();
+        btn4 = new javax.swing.JButton();
+        btn5 = new javax.swing.JButton();
+        btn6 = new javax.swing.JButton();
+        btnVentas = new javax.swing.JButton();
+        btn8 = new javax.swing.JButton();
+        btn9 = new javax.swing.JButton();
+        btn10 = new javax.swing.JButton();
+        labelRut = new javax.swing.JLabel();
+        labelNombre = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Impact", 3, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tekton Pro Cond", 3, 60)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Bienvenido");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 230, -1));
 
-        txtrut.setEditable(false);
-
-        txtnombre.setEditable(false);
-
+        lblperfil.setFont(new java.awt.Font("Tekton Pro", 1, 18)); // NOI18N
+        lblperfil.setForeground(new java.awt.Color(204, 204, 204));
         lblperfil.setText("jLabel2");
+        getContentPane().add(lblperfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, 110, 36));
 
+        lblperfil1.setFont(new java.awt.Font("Tekton Pro", 1, 18)); // NOI18N
+        lblperfil1.setForeground(new java.awt.Color(204, 204, 204));
         lblperfil1.setText("jLabel2");
+        getContentPane().add(lblperfil1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 42, -1));
 
-        btn1.setText("admin,emple");
+        btn1.setText("Perfiles");
+        btn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 20, 100, 40));
 
-        btn2.setText("admin,emple");
+        btn2.setText("Mensajes");
+        getContentPane().add(btn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, 100, 40));
 
-        btn3.setText("admin,bodeg");
+        btn3.setText("Usuarios");
+        getContentPane().add(btn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 70, 100, 40));
+        getContentPane().add(Dp, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 1240, 570));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(txtrut, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblperfil, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblperfil1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)))
-                .addContainerGap(62, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(lblperfil, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblperfil1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtrut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(106, 106, 106)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn2, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                    .addComponent(btn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(176, Short.MAX_VALUE))
-        );
+        btn4.setText("Proveedores");
+        btn4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 20, 100, 40));
+
+        btn5.setText("Estados");
+        btn5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn5, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 20, 100, 40));
+
+        btn6.setText("Estadisticas");
+        btn6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 70, 100, 40));
+
+        btnVentas.setText("Ventas");
+        btnVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 20, 100, 40));
+
+        btn8.setText("Productos");
+        getContentPane().add(btn8, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 70, 100, 40));
+
+        btn9.setText("Categorias");
+        btn9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn9ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn9, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 70, 100, 40));
+
+        btn10.setText("Pedidos");
+        btn10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn10ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn10, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 70, 100, 40));
+
+        labelRut.setFont(new java.awt.Font("Tekton Pro", 1, 18)); // NOI18N
+        labelRut.setForeground(new java.awt.Color(204, 204, 204));
+        labelRut.setText("jLabel2");
+        getContentPane().add(labelRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
+
+        labelNombre.setFont(new java.awt.Font("Tekton Pro", 1, 18)); // NOI18N
+        labelNombre.setForeground(new java.awt.Color(204, 204, 204));
+        labelNombre.setText("jLabel3");
+        getContentPane().add(labelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
+        this.Dp.add(PPerfiles);
+        this.PVentas.dispose();
+        this.PPerfiles.setVisible(true);
+    }//GEN-LAST:event_btn1ActionPerformed
+
+    private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn4ActionPerformed
+
+    private void btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn5ActionPerformed
+
+    private void btn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn6ActionPerformed
+
+    private void btn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn9ActionPerformed
+
+    private void btn10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn10ActionPerformed
+
+    private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
+       Dp.add(PVentas);
+       PPerfiles.dispose();
+       PVentas.setVisible(true);
+    }//GEN-LAST:event_btnVentasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,13 +290,21 @@ System.out.println("HABILITADO");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane Dp;
     private javax.swing.JButton btn1;
+    private javax.swing.JButton btn10;
     private javax.swing.JButton btn2;
     private javax.swing.JButton btn3;
+    private javax.swing.JButton btn4;
+    private javax.swing.JButton btn5;
+    private javax.swing.JButton btn6;
+    private javax.swing.JButton btn8;
+    private javax.swing.JButton btn9;
+    private javax.swing.JButton btnVentas;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel labelNombre;
+    private javax.swing.JLabel labelRut;
     public static javax.swing.JLabel lblperfil;
     public static javax.swing.JLabel lblperfil1;
-    public static javax.swing.JTextField txtnombre;
-    public static javax.swing.JTextField txtrut;
     // End of variables declaration//GEN-END:variables
 }
