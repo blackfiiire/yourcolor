@@ -6,6 +6,9 @@
 package MantenedorProductos;
 
 import Conexion.ConexionDB;
+import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +16,9 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import yourcolor.Limitador;
 
 /**
  *
@@ -24,14 +29,34 @@ public class Productos extends javax.swing.JInternalFrame {
     /**
      * Creates new form Productos
      */
+    
+    
     public Productos() {
         initComponents();
+        Productos f = new Productos();
+        f.setBackground(new Color(19,50,67));
+        SNumeros(tfCodigo);
+        SNumeros(tfStock);
+        SNumeros(tfCosto);
+        SNumeros(tfUtilidad);
         Cargar();
+        limitar();
         btnModificar.setEnabled(false);
         ProveedorCombo();
         CategoriaCombo();
     }
-
+//Metodo que limita los caracteres de los Txt Field
+    public void limitar(){
+        tfCodigo.setDocument(new Limitador(tfCodigo, 12));
+        tfNombre.setDocument(new Limitador(tfNombre, 30));
+        tfStock.setDocument(new Limitador(tfStock, 7));
+        tfCosto.setDocument(new Limitador(tfCosto, 10));
+        tfUtilidad.setDocument(new Limitador (tfUtilidad,10));
+        tfNeto.setDocument(new Limitador(tfNeto, 10));
+        tfIva.setDocument(new Limitador(tfIva, 5));
+        tfVenta.setDocument(new Limitador(tfVenta, 10));
+        jtfDescripcion.setDocument(new Limitador(jtfDescripcion, 60));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,6 +138,12 @@ public class Productos extends javax.swing.JInternalFrame {
 
         jLabel13.setText("Utilidad");
 
+        tfIva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfIvaActionPerformed(evt);
+            }
+        });
+
         jLabel14.setText("IVA");
 
         jLabel7.setText("Precio Neto");
@@ -176,14 +207,15 @@ public class Productos extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel12)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel1))
+                            .addComponent(jLabel8))
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,9 +299,7 @@ public class Productos extends javax.swing.JInternalFrame {
                                     .addComponent(tfUtilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel7)
-                                .addGap(19, 19, 19)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(44, 44, 44)
                                 .addComponent(jLabel6))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -286,7 +316,8 @@ public class Productos extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(tfVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel5)
-                                    .addComponent(cbxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cbxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(tfImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
@@ -306,12 +337,88 @@ public class Productos extends javax.swing.JInternalFrame {
                             .addComponent(tfBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(44, Short.MAX_VALUE))))
+                        .addContainerGap(48, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    /******************************SOLO NUMEROS********************************/
+    public void SNumeros (JTextField a){
+    //permite hacer la llamada al evento
+        //KeyAdapter es una clase abstracta que se adapta para recibir los eventos del teclado
+        a.addKeyListener(new KeyAdapter() {
+            //Evento a utilizar
+            public void keyTyped(KeyEvent e){
+            //La variable char extrae la variable que se ingresa
+                char c=e.getKeyChar();
+                if(Character.isLetter(c)){
+                //Sonido en caso que se ingrese un caracter no admitido
+                getToolkit().beep();
+                e.consume();
+                }
+            }
+        });
+    }
+    /****************************FIN SOLO NUMEROS******************************/
+    /*********************************CALCULOS*********************************/
+    public void Calculos(){
+        //float costo=0;
+        //float utilidad=0;
+       
+        //rescatar datos
+        //costo = Integer.parseInt(tfCosto.getText());
+        //utilidad = Integer.parseInt(tfUtilidad.getText());
+        
+        //Realizar calculos
+        //float PorcUtilidad = (costo * utilidad)/100 ;//Calcular utilidad con respecto al costo
+        //float neto = costo + PorcUtilidad ;//Obtener Precio Neto
+        //float iva = (neto * 19)/100; //calcular iva  
+        //float venta = iva + neto ;//Obtener precio de venta  
+        //Imprimir los datos en los textfield
+        //this.tfNeto.setText(neto);
+        //this.tfIva.setText(iva);
+        //this.tfVenta.setText(venta);
+        
+        float costo         =0;
+        float utilidad      =0;
+        float PorcUtilidad  =0;
+        float neto          =0;
+        float iva           =0;
+        float venta         =0;
+        
+        String costoX;
+        String utilidadX;
+        String PorcUtilidadX;
+        String netoX    =   null;
+        String ivaX     =   null;
+        String ventaX   =   null;
+        
+        costoX          =   tfCosto.getText();
+        utilidadX       =   tfUtilidad.getText();
+        
+        costo           =   Integer.parseInt(costoX);
+        utilidad        =   Integer.parseInt(utilidadX);
+        neto            =   Integer.parseInt(netoX);
+        iva             =   Integer.parseInt(ivaX);
+        venta           =   Integer.parseInt(ventaX);
+        
+        PorcUtilidad    =   (costo*utilidad)/100;
+        neto            =   (costo+PorcUtilidad);
+        iva             =   (neto*19)/100;
+        venta           =   (iva+neto);
+        
+        PorcUtilidadX   =   String.valueOf(PorcUtilidad);
+        netoX           =   String.valueOf(neto);
+        ivaX            =   String.valueOf(iva);
+        ventaX          =   String.valueOf(venta);
+        
+        tfNeto.setText(netoX);
+        tfIva.setText(ivaX);
+        tfVenta.setText(ventaX);
+
+    }
+    /*******************************FIN CALCULOS*******************************/
     /*********************************CARGAR***********************************/
         public void Cargar(){
         //tomar modelo de la tabla
@@ -431,6 +538,8 @@ public class Productos extends javax.swing.JInternalFrame {
         //ejecutar query
         Statement statement=(Statement) miConexion.createStatement();
         statement.executeUpdate(Query);
+        
+        Calculos();
         //cerrar conexion
         //CODIGO ACÁ
         
@@ -511,6 +620,10 @@ public class Productos extends javax.swing.JInternalFrame {
     private void cbxProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProveedorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxProveedorActionPerformed
+
+    private void tfIvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIvaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfIvaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
