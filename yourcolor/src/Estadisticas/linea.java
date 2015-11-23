@@ -5,7 +5,6 @@
  */
 package Estadisticas;
 
-import MantenedorEstados.frmVerTodosEstado;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -223,14 +222,14 @@ public class linea extends javax.swing.JInternalFrame {
                 archivo = new FileOutputStream(seleccionar_archivo.getSelectedFile());
                
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(linea.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             Document documento = new Document();
             try {
                 PdfWriter.getInstance(documento, archivo);
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(linea.class.getName()).log(Level.SEVERE, null, ex);
             }
             PdfPTable t = new PdfPTable(3);
             documento.open();
@@ -248,22 +247,22 @@ catch ( Exception e )
             try {
                 documento.add(new Paragraph("                                                "));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(linea.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 documento.add(new Paragraph("ESTADOS"));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(linea.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 documento.add(new Paragraph(" "));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(linea.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 documento.add(new Paragraph(" "));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(linea.class.getName()).log(Level.SEVERE, null, ex);
             }
               try
 {
@@ -276,11 +275,13 @@ catch ( Exception e )
 {
     e.printStackTrace();
 }
-            try {
-                documento.add(t);
-            } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
+              try {
+                  documento.add(t);
+              } catch (DocumentException ex) {
+                  Logger.getLogger(linea.class.getName()).log(Level.SEVERE, null, ex);
+              }
+            
             //
             documento.close();
              File JFC = seleccionar_archivo.getSelectedFile();

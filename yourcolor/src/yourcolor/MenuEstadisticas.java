@@ -17,11 +17,8 @@ import Estadisticas.productosmensuales;
 import Estadisticas.torta;
 import Estadisticas.ventasanuales;
 import Estadisticas.ventasdiarias;
-import MantenedorEmpleados.frmAgregarEmpleado;
-import MantenedorEstados.frmAgregarEstado;
-import MantenedorEstados.frmEliminarEstado;
-import MantenedorEstados.frmModificarEstado;
-import MantenedorEstados.frmVerTodosEstado;
+import MantenedorUsuarios.frmUsuarios;
+import MantenedorEstados.frmEstado;
 import java.awt.Color;
 import java.beans.PropertyVetoException;
 import static java.lang.System.exit;
@@ -100,6 +97,7 @@ this.setExtendedState(MAXIMIZED_BOTH);
         jSeparator4 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setEnabled(false);
 
         panelRound1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panelRound1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

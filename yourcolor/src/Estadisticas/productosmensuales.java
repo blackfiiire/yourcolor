@@ -5,7 +5,6 @@
  */
 package Estadisticas;
 
-import MantenedorEstados.frmVerTodosEstado;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -383,7 +382,7 @@ if (seleccion != -1)
                 archivo = new FileOutputStream(seleccionar_archivo.getSelectedFile()+".pdf");
             
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             Document documento = new Document();
@@ -391,7 +390,7 @@ if (seleccion != -1)
             try {
                 PdfWriter.getInstance(documento, archivo);
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             PdfPTable t = new PdfPTable(3);
             documento.open();
@@ -409,22 +408,22 @@ if (seleccion != -1)
             try {
                 documento.add(new Paragraph("                                                "));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 documento.add(new Paragraph("ESTADISTICA MESES/GANANCIAS"));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 documento.add(new Paragraph(" "));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 documento.add(new Paragraph(" "));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             try
             {
@@ -440,7 +439,7 @@ if (seleccion != -1)
             try {
                 documento.add(t);
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             //
             documento.close();
@@ -467,7 +466,7 @@ if (seleccion != -1)
                 archivo = new FileOutputStream(seleccionar_archivo.getSelectedFile()+".pdf");
             
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             Document documento = new Document();
@@ -475,7 +474,7 @@ if (seleccion != -1)
             try {
                 PdfWriter.getInstance(documento, archivo);
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             PdfPTable t = new PdfPTable(3);
             documento.open();
@@ -493,22 +492,22 @@ if (seleccion != -1)
             try {
                 documento.add(new Paragraph("                                                "));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 documento.add(new Paragraph("ESTADISTICA MESES/GANANCIAS"));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 documento.add(new Paragraph(" "));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 documento.add(new Paragraph(" "));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             try
             {
@@ -524,7 +523,7 @@ if (seleccion != -1)
             try {
                 documento.add(t);
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             //
             documento.close();
@@ -678,14 +677,14 @@ if (seleccion != -1)
                 archivo = new FileOutputStream(seleccionar_archivo.getSelectedFile());
                
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             Document documento = new Document();
             try {
                 PdfWriter.getInstance(documento, archivo);
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             PdfPTable t = new PdfPTable(3);
             documento.open();
@@ -703,33 +702,35 @@ catch ( Exception e )
             try {
                 documento.add(new Paragraph("                                                "));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 documento.add(new Paragraph("ESTADOS"));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 documento.add(new Paragraph(" "));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 documento.add(new Paragraph(" "));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             int f=0;
             String cod_producto;
             String nombre;
             String cantidad;
             
+            
             try {
                 documento.add(t);
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
              t.addCell("    CODIGO");
                  t.addCell("    NOMBRE");
                 t.addCell("    CANTIDAD");
@@ -749,7 +750,7 @@ catch ( Exception e )
             try {
                 documento.add(t);
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(productosmensuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             //
             documento.close();

@@ -5,7 +5,6 @@
  */
 package Estadisticas;
 
-import MantenedorEstados.frmVerTodosEstado;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -299,18 +298,19 @@ public class ventasanuales extends javax.swing.JInternalFrame {
         if(opcion==seleccionar_archivo.APPROVE_OPTION){
 
             OutputStream archivo = null;
+            
             try {
                 archivo = new FileOutputStream(seleccionar_archivo.getSelectedFile());
-
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ventasanuales.class.getName()).log(Level.SEVERE, null, ex);
             }
+
 
             Document documento = new Document();
             try {
                 PdfWriter.getInstance(documento, archivo);
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ventasanuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             PdfPTable t = new PdfPTable(3);
             documento.open();
@@ -328,22 +328,22 @@ public class ventasanuales extends javax.swing.JInternalFrame {
             try {
                 documento.add(new Paragraph("                                                "));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ventasanuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 documento.add(new Paragraph("ESTADISTICA MESES/GANANCIAS"));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ventasanuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 documento.add(new Paragraph(" "));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ventasanuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 documento.add(new Paragraph(" "));
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ventasanuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             try
             {
@@ -359,7 +359,7 @@ public class ventasanuales extends javax.swing.JInternalFrame {
             try {
                 documento.add(t);
             } catch (DocumentException ex) {
-                Logger.getLogger(frmVerTodosEstado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ventasanuales.class.getName()).log(Level.SEVERE, null, ex);
             }
             //
             documento.close();
