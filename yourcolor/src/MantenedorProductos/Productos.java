@@ -5,8 +5,8 @@
  */
 package MantenedorProductos;
 
-import Conexion.ConexionDB;
-import java.awt.Color;
+//import Conexion.ConexionDB
+//import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -30,11 +31,12 @@ public class Productos extends javax.swing.JInternalFrame {
     
             Conexion conexion = new Conexion();
             Connection cn = conexion.conectar();
+            DefaultComboBoxModel ModCbx = new DefaultComboBoxModel();
             
     public Productos() {
         initComponents();
-        Productos f = new Productos();
-        f.setBackground(new Color(19,50,67));
+        //Productos f = new Productos();
+        //f.setBackground(new Color(19,50,67));
         SNumeros(tfCodigo);
         SNumeros(tfStock);
         SNumeros(tfCosto);
@@ -42,8 +44,8 @@ public class Productos extends javax.swing.JInternalFrame {
         Cargar();
         limitar();
         btnModificar.setEnabled(false);
-        ProveedorCombo();
-        CategoriaCombo();
+        comboProv();
+        comboCat();
     }
 //Metodo que limita los caracteres de los Txt Field
     public void limitar(){
@@ -372,26 +374,56 @@ public class Productos extends javax.swing.JInternalFrame {
             }
         });
     }
-    /****************************FIN SOLO NUMEROS******************************/
+    /****************************FIN SOLO NUMEROS******************************/ 
+    
+    /**************************LLENAR CBX PROVEEDOR****************************/
+        public void comboProv() {
+            try {
+                //ABRIR CONEXION
+                conexion.conectar();
+                Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                ResultSet rs = st.executeQuery("SELECT nombre FROM proveedores");
+                ModCbx.addElement("Seleccione un campo");//es el primer registro q mostrara el combo
+                cbxProveedor.setModel(ModCbx);//con esto lo agregamos al objeto al jcombobox
+                while (rs.next()) {
+                    ModCbx.addElement(rs.getObject("nombre"));
+                    cbxProveedor.setModel(ModCbx);
+                }
+                st.close();
+                //CERRAR CONEXION
+                conexion.desconectar();
+            } catch (SQLException ex) {
+                Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }
+                
+    /************************FIN LLENAR CBX PROVEEDOR**************************/
+        
+    /**************************LLENAR CBX CATEGORIA****************************/
+    public void comboCat() {
+            try {
+                //ABRIR CONEXION
+                conexion.conectar();
+                Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                ResultSet rs = st.executeQuery("SELECT nombre FROM categorias");
+                ModCbx.addElement("Seleccione un campo");//es el primer registro q mostrara el combo
+                cbxCategoria.setModel(ModCbx);//con esto lo agregamos al objeto al jcombobox
+                while (rs.next()) {
+                    ModCbx.addElement(rs.getObject("nombre"));
+                    cbxCategoria.setModel(ModCbx);
+                }
+                st.close();
+                //CERRAR CONEXION
+                conexion.desconectar();
+            } catch (SQLException ex) {
+                Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }
+    /************************FIN LLENAR CBX CATEGORIA**************************/
+    
     /*********************************CALCULOS*********************************/
     public void Calculos(){
-        //float costo=0;
-        //float utilidad=0;
-       
-        //rescatar datos
-        //costo = Integer.parseInt(tfCosto.getText());
-        //utilidad = Integer.parseInt(tfUtilidad.getText());
-        
-        //Realizar calculos
-        //float PorcUtilidad = (costo * utilidad)/100 ;//Calcular utilidad con respecto al costo
-        //float neto = costo + PorcUtilidad ;//Obtener Precio Neto
-        //float iva = (neto * 19)/100; //calcular iva  
-        //float venta = iva + neto ;//Obtener precio de venta  
-        //Imprimir los datos en los textfield
-        //this.tfNeto.setText(neto);
-        //this.tfIva.setText(iva);
-        //this.tfVenta.setText(venta);
-        
+
         float costo         =0;
         float utilidad      =0;
         float PorcUtilidad  =0;
@@ -431,6 +463,7 @@ public class Productos extends javax.swing.JInternalFrame {
 
     }
     /*******************************FIN CALCULOS*******************************/
+    
     /*********************************CARGAR***********************************/
         public void Cargar(){
         //tomar modelo de la tabla
@@ -458,7 +491,7 @@ public class Productos extends javax.swing.JInternalFrame {
                     Object fila[] = {codigo, proveedor, nombre, stock, costo, utilidad, neto, iva, venta, categoria, descripcion};
                     m.addRow(fila);
                 }
-                //CERRAR CONECCION
+                //CERRAR CONEXION
                 conexion.desconectar();
 
             } catch (SQLException ex) {
@@ -480,51 +513,7 @@ public class Productos extends javax.swing.JInternalFrame {
         ));
     }
     /*****************************FIN LIMPIAR**********************************/
-             
-    /**************************COMBO PROVEEDORES*******************************/
-        public void ProveedorCombo(){
-            //abrir conexion
-            conexion.conectar();
-        try {
-                //Crear consulta para buscar producto segun codigo
-                String query = "Select Nombre from proveedores";
-                Statement statement=(Statement) cn.createStatement();
-                ResultSet rs = statement.executeQuery(query);
-                while(rs.next())
-                {
-                    cbxProveedor.addItem(rs.getString("NOMBRE"));
-                }
-                //Cerrar Coneccion.
-                conexion.desconectar();
 
-            } catch (SQLException ex) {
-                Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
-            }
-    }
-    /************************FIN COMBO PROVEEDORES*****************************/
-        
-    /****************************COMBO CATEGORIA*******************************/
-        public void CategoriaCombo(){
-            //abrir conexion
-            conexion.conectar();
-        try {
-                //Crear consulta para buscar producto segun codigo
-                String query = "Select Nombre from categorias";
-                Statement statement=(Statement) cn.createStatement();
-                ResultSet rs = statement.executeQuery(query);
-                while(rs.next())
-                {
-                    cbxProveedor.addItem(rs.getString("NOMBRE"));
-                }
-                //Cerrar Coneccion.
-                conexion.desconectar();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
-            }
-    }
-    /**************************FIN COMBO CATEGORIA*****************************/
-        
     /****************************LIMPIAR CAMPOS********************************/  
             public void LimpiarCampos()
         {
@@ -547,7 +536,7 @@ public class Productos extends javax.swing.JInternalFrame {
         //abrir nueva conexion
         conexion.conectar();
         //armar query
-        String Query = "Insert into productos (Codigo, Proveedor, Nombre, Stock, P_Costo, Utilidad, P_Neto, IVA, P_Venta, Categoria, Dscripcion) values ('" + tfCodigo.getText() + "','" + cbxProveedor.getSelectedItem() + "','" + tfNombre.getText() + "','" + tfStock.getText() + "','" + tfCosto.getText() + "','"+tfUtilidad.getText()+"','"+tfNeto.getText()+"','"+tfIva.getText()+"','"+tfVenta.getText()+"','"+cbxCategoria.getSelectedItem()+"','"+jtfDescripcion.getText()+"');";
+        String Query = "Insert into productos (codigo, proveedor, nombre, stock, pCosto, utilidad, pNeto, iva, pVenta, categoria, detalle) values ('" + tfCodigo.getText() + "','" + cbxProveedor.getSelectedItem() + "','" + tfNombre.getText() + "','" + tfStock.getText() + "','" + tfCosto.getText() + "','"+tfUtilidad.getText()+"','"+tfNeto.getText()+"','"+tfIva.getText()+"','"+tfVenta.getText()+"','"+cbxCategoria.getSelectedItem()+"','"+jtfDescripcion.getText()+"');";
         //ejecutar query
         Statement statement=(Statement) cn.createStatement();
         statement.executeUpdate(Query);
@@ -566,7 +555,7 @@ public class Productos extends javax.swing.JInternalFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         conexion.conectar();
         try {
-            PreparedStatement pst = cn.prepareStatement("UPDATE proveedor SET codigo='"+tfCodigo.getText()+"',nombre='"+tfNombre.getText()+"',stock='"+tfStock.getText()+"',pCosto='"+tfCosto.getText()+"',utilidad='"+tfUtilidad.getText()+"',pNeto='"+tfNeto.getText()+"',iva='"+tfIva.getText()+"',pVenta='"+tfVenta.getText()+"',detalle='"+jtfDescripcion.getText()+"' WHERE codigo='"+tfCodigo.getText()+"'");
+            PreparedStatement pst = cn.prepareStatement("UPDATE productos SET codigo='"+tfCodigo.getText()+"',nombre='"+tfNombre.getText()+"',stock='"+tfStock.getText()+"',pCosto='"+tfCosto.getText()+"',utilidad='"+tfUtilidad.getText()+"',pNeto='"+tfNeto.getText()+"',iva='"+tfIva.getText()+"',pVenta='"+tfVenta.getText()+"',detalle='"+jtfDescripcion.getText()+"' WHERE codigo='"+tfCodigo.getText()+"'");
             pst.executeUpdate();
                     
             Limpiar();
@@ -578,8 +567,8 @@ public class Productos extends javax.swing.JInternalFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
         //Seleccionar Fila
-        int IdSelect = jTable1.getSelectedRow();
-        String Numero = m.getValueAt(IdSelect, 0).toString();
+        int CodSelect = jTable1.getSelectedRow();
+        String Numero = m.getValueAt(CodSelect, 0).toString();
         
         int confirmado = JOptionPane.showConfirmDialog(this,"¿Desear realmente eliminar este registro?");
 
@@ -610,24 +599,29 @@ public class Productos extends javax.swing.JInternalFrame {
             //abrir conexion
             conexion.conectar();
             //Consulta a ejecutar
-            String     sql = ("SELECT * FROM productos WHERE (Codigo like '%"+tfBusqueda.getText()+"%') or (Nombre like '%"+tfBusqueda.getText()+"%') or (Descripcion like '%"+tfBusqueda.getText()+"%')");
+            String     sql = ("SELECT productos.codigo, proveedores.nombre as proveedor, productos.nombre, productos.stock, "
+                    + "productos.pCosto, productos.utilidad, productos.pNeto, productos.iva, productos.pVenta, "
+                    + "categorias.nombre as categoria, productos.detalle "
+                    + "FROM productos, proveedores, categorias "
+                    + "WHERE (productos.proveedor=proveedores.rut) and (productos.categoria=categorias.id) and "
+                    + "(codigo like '%"+tfBusqueda.getText()+"%') or (nombre like '%"+tfBusqueda.getText()+"%') or (detalle like '%"+tfBusqueda.getText()+"%')");
             //Preparar la consulta
             Statement st = cn.createStatement();
             //Ejecutar consulta
             ResultSet rs = st.executeQuery(sql);
             //Mostrar los datos
             while(rs.next()){
-                String codigo = rs.getString("Codigo");
-                String proveedor = rs.getString("Proveedor");
-                String nombre = rs.getString("Nombre");
-                String stock = rs.getString("Stock");
-                String costo = rs.getString("P_Ccosto");
-                String utilidad = rs.getString("Utilidad");
-                String neto = rs.getString("P_Neto");
-                String iva = rs.getString("IVA");
-                String venta = rs.getString("P_Venta");
-                String categoria = rs.getString("Categoria");
-                String descripcion = rs.getString("Descripcion");
+                String codigo = rs.getString("codigo");
+                String proveedor = rs.getString("proveedor");
+                String nombre = rs.getString("nombre");
+                String stock = rs.getString("stock");
+                String costo = rs.getString("pCosto");
+                String utilidad = rs.getString("utilidad");
+                String neto = rs.getString("pNeto");
+                String iva = rs.getString("iva");
+                String venta = rs.getString("pVenta");
+                String categoria = rs.getString("categoria");
+                String descripcion = rs.getString("detalle");
                 Object fila[] = {codigo, proveedor, nombre, stock, costo, utilidad, neto, iva, venta, categoria, descripcion};
                 m.addRow(fila);
             }
