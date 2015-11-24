@@ -472,22 +472,26 @@ public class Productos extends javax.swing.JInternalFrame {
             conexion.conectar();
         try {
                 //Crear consulta para buscar empleado segun rut
-                String Query = "select * from productos";
+                String Query = "SELECT productos.codigo, proveedores.nombre as proveedor, productos.nombre, productos.stock, "
+                    + "productos.pCosto, productos.utilidad, productos.pNeto, productos.iva, productos.pVenta, "
+                    + "categorias.nombre as categoria, productos.detalle "
+                    + "FROM productos, proveedores, categorias "
+                    + "WHERE (productos.proveedor=proveedores.rut) and (productos.categoria=categorias.id)";
                 Statement st = cn.createStatement();
                 ResultSet rs = st.executeQuery(Query);
                 while(rs.next())
                 {
-                    String codigo = rs.getString("Codigo");
-                    String proveedor = rs.getString("Proveedor");
-                    String nombre = rs.getString("Nombre");
-                    String stock = rs.getString("Stock");
-                    String costo = rs.getString("P_Ccosto");
-                    String utilidad = rs.getString("Utilidad");
-                    String neto = rs.getString("P_Neto");
-                    String iva = rs.getString("IVA");
-                    String venta = rs.getString("P_Venta");
-                    String categoria = rs.getString("Categoria");
-                    String descripcion = rs.getString("Descripcion");
+                    String codigo = rs.getString("codigo");
+                    String proveedor = rs.getString("proveedor");
+                    String nombre = rs.getString("nombre");
+                    String stock = rs.getString("stock");
+                    String costo = rs.getString("pCosto");
+                    String utilidad = rs.getString("utilidad");
+                    String neto = rs.getString("pNeto");
+                    String iva = rs.getString("iva");
+                    String venta = rs.getString("pVenta");
+                    String categoria = rs.getString("categoria");
+                    String descripcion = rs.getString("detalle");
                     Object fila[] = {codigo, proveedor, nombre, stock, costo, utilidad, neto, iva, venta, categoria, descripcion};
                     m.addRow(fila);
                 }
