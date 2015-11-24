@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import yourcolor.Conexion;
+import yourcolor.Limitador;
 
 /**
  *
@@ -576,7 +577,7 @@ public class Productos extends javax.swing.JInternalFrame {
                 //abrir conexion
                 conexion.conectar();
                 //query
-                String Query = "delete from productos where Codigo = '" + Numero + "';";
+                String Query = "delete from productos where codigo = '" + Numero + "';";
                 Statement st = cn.createStatement();
                 st.execute(Query);
                 //cerrar conexion
